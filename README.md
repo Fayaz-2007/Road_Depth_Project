@@ -15,6 +15,7 @@ Road-Surface-Displacement/
 │
 ├── Python_CNN_Model/
 │   ├── train_model.py           # CNN training script (TensorFlow/Keras)
+│   ├── live_predict.py          # Real-time camera prediction script
 │   ├── road_displacement_model.h5   # Trained CNN model
 │   ├── sample.jpg               # Sample test image
 │   ├── sample1.jpg              # Sample test image
@@ -37,7 +38,13 @@ Road-Surface-Displacement/
 cd Python_CNN_Model
 pip install -r requirements.txt
 python train_model.py
+
+#### Run Live Camera Prediction
+To test the model in real-time using your USB camera/webcam:
+```bash
+python live_predict.py
 ```
+*(Press 'q' to quit the video window)*
 
 ### MATLAB Regression Model
 
@@ -59,5 +66,5 @@ Labels with displacement measurements (in cm) are stored in `dataset/labels.xlsx
 
 ## Technologies
 
-- **Python**: TensorFlow/Keras CNN for image classification & regression
+- **Python**: TensorFlow/Keras CNN for image classification & regression, OpenCV for real-time camera feed
 - **MATLAB**: Boosted ensemble regression model for displacement prediction
