@@ -1,20 +1,24 @@
 import cv2
 import numpy as np
+import streamlit as st
 from PIL import Image
 from predict import load_model
 
 # Settings
 IMAGE_SIZE = 128
 
-def main():
-    print("Loading model...")
-    model = load_model()
+def run_live_prediction(model=None, camera_index=0):
+    if model is None:
+        print("Loading model...")
+        model = load_model()
 
-    print("Opening webcam...")
-    cap = cv2.VideoCapture(0)
+    print(f"Opening webcam at index {camera_index}...")
+    cap = cv2.VideoCapture(camera_index)
 
     if not cap.isOpened():
-        print("Error: Could not open camera.")
+        error_msg = "Error: Could not open camera. Please check if your USB camera is connected or if another app is using it."
+        print(error_msg)
+        st.error(error_msg)
         return
 
     print("Press 'q' to quit.")
@@ -63,4 +67,4 @@ def main():
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    main()
+    run_live_prediction()

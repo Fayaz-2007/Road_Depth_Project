@@ -49,21 +49,29 @@ python live_predict.py
 ```
 *(Press 'q' to quit the video window)*
 
-### Running with Docker
+### Running with Docker (Recommended for Beginners)
 
-You can easily run the Streamlit application using Docker without worrying about Python versions or local dependencies.
+If you don't want to install Python and all the dependencies locally, you can easily run the Streamlit application using Docker! 
+
+**Prerequisites:** You must have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running on your machine.
 
 1. **Build the Docker Image:**
-```bash
-cd Python_CNN_Model
-docker build -t road-depth-predictor .
-```
+   Open your terminal, navigate into the Python model folder, and build the image:
+   ```bash
+   cd Python_CNN_Model
+   docker build -t road-depth-predictor .
+   ```
 
 2. **Run the Container:**
-```bash
-docker run -p 8501:8501 road-depth-predictor
-```
-Then open `http://localhost:8501` in your browser.
+   Once built, start the container and expose the web app port:
+   ```bash
+   docker run -p 8501:8501 road-depth-predictor
+   ```
+
+3. **Access the Web App:**
+   Open your web browser and go to: `http://localhost:8501`
+
+*(Note: The "Open Live Camera" button inside the web app requires a physical display. If you are running via Docker, that specific button will not work because Docker cannot natively access your host's USB camera and screen. You can still use the "Image Upload" feature perfectly!)*
 
 ### MATLAB Regression Model
 
