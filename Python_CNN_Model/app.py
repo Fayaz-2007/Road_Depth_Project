@@ -10,6 +10,17 @@ st.title("🚗 Road Displacement Prediction System")
 # Load model once
 model = load_model()
 
+st.markdown("---")
+st.subheader("Real-Time Prediction")
+camera_index = st.number_input("Camera Index", min_value=0, max_value=5, value=0, step=1, help="0 is usually the built-in webcam. Change to 1 or 2 for a USB camera.")
+
+if st.button("Open Live Camera (Local Only)"):
+    from live_predict import run_live_prediction
+    st.info("Opening OpenCV camera window... Press 'q' in the window to quit.")
+    run_live_prediction(model, camera_index)
+
+st.markdown("---")
+st.subheader("Image Upload Prediction")
 uploaded_file = st.file_uploader("Upload Road Image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
