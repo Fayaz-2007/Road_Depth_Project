@@ -19,7 +19,9 @@ Road-Surface-Displacement/
 │   ├── road_displacement_model.h5   # Trained CNN model
 │   ├── sample.jpg               # Sample test image
 │   ├── sample1.jpg              # Sample test image
-│   └── requirements.txt        # Python dependencies
+│   ├── requirements.txt        # Python dependencies
+│   ├── Dockerfile               # Docker configuration
+│   └── .dockerignore
 │
 ├── MATLAB_Regression_Model/
 │   ├── train_regression.m       # MATLAB regression training script
@@ -38,6 +40,7 @@ Road-Surface-Displacement/
 cd Python_CNN_Model
 pip install -r requirements.txt
 python train_model.py
+```
 
 #### Run Live Camera Prediction
 To test the model in real-time using your USB camera/webcam:
@@ -45,6 +48,22 @@ To test the model in real-time using your USB camera/webcam:
 python live_predict.py
 ```
 *(Press 'q' to quit the video window)*
+
+### Running with Docker
+
+You can easily run the Streamlit application using Docker without worrying about Python versions or local dependencies.
+
+1. **Build the Docker Image:**
+```bash
+cd Python_CNN_Model
+docker build -t road-depth-predictor .
+```
+
+2. **Run the Container:**
+```bash
+docker run -p 8501:8501 road-depth-predictor
+```
+Then open `http://localhost:8501` in your browser.
 
 ### MATLAB Regression Model
 
