@@ -91,6 +91,39 @@ The `dataset/` folder contains labeled road surface images organized by category
 
 Labels with displacement measurements (in cm) are stored in `dataset/labels.xlsx`.
 
+## Sequence-Based Video Inference (Experimental)
+
+We have introduced an experimental inference pipeline to exploit the trajectory of the existing CNN's predictions across a sequence of video frames. 
+
+Instead of trusting a single arbitrary frame (which is highly vulnerable to distance/scale ambiguity), this tool processes every frame of an approaching vehicle video, generates a continuous prediction sequence, and uses temporal processing to derive a final robust measurement.
+
+### How it works:
+1. **Frame Extraction**: Reads every frame from an input `.mp4`.
+2. **CNN Inference**: Passes each frame through the **existing** `road_displacement_model.h5` without any additional ground-truth input.
+3. **Temporal Processing**: Applies a moving average filter to the sequence of predictions to remove frame-to-frame noise.
+4. **Aggregation**: Extracts the peak (maximum) displacement from the smoothed curve, which typically correlates to the moment the camera is closest to the anomaly.
+
+### Running Video Inference
+
+Run the prediction script directly on any video file:
+```bash
+cd Python_CNN_Model
+python predict_video.py path/to/your/video.mp4
+```
+
+**Outputs generated:**
+- `video_predictions.csv`: Contains `video_id`, `frame_id`, `timestamp`, `predicted_displacement_cm`, and `smoothed_displacement_cm`.
+- `video_prediction_curve.png`: A plot showing the prediction trajectory over time and the final aggregated estimate.
+
+### 10 cm Controlled Validation Experiment
+
+To validate this approach against physical measurements:
+1. Record a video approaching a physical anomaly (e.g., a speed breaker).
+2. Run `predict_video.py` on the video.
+3. Compare the system's final derived estimate to your manual physical measurement (e.g., 10 cm) to calculate the absolute error. 
+
+*(Note: The known physical measurement is only used externally for evaluation; the system operates entirely blind.)*
+
 ## Technologies
 
 - **Python**: TensorFlow/Keras CNN for image classification & regression, OpenCV for real-time camera feed
