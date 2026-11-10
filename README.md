@@ -59,5 +59,7 @@ Labels with displacement measurements (in cm) are stored in `dataset/labels.xlsx
 
 ## Technologies
 
+![](https://skillicons.dev/icons?i=py,matlab)
+
 - **Python**: TensorFlow/Keras CNN for image classification & regression
 - **MATLAB**: Boosted ensemble regression model for displacement prediction
